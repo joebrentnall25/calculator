@@ -1,11 +1,27 @@
 "use strict";
 
-var input = [];
-var operators = ['brackets', '/', 'times', 'plus', 'minus'];
+var input = [''];
+var inputStr = "";
+var operators = ['brackets', '/', 'x', '+', '-'];
 
 var appendNumber = function appendNumber(num) {
-  input.push(num);
-  updateDisplay(input.join(" "));
+  if (num === operators[1] || num === operators[2] || num === operators[3] || num === operators[4]) {
+    inputStr = "";
+    console.log(input);
+    input.push(num);
+    input.push('');
+    console.log(input);
+    updateDisplay(input.join(' '));
+  } else {
+    inputStr += num;
+    console.log(inputStr.split('').some(function (ai) {
+      return operators.indexOf(ai) !== -1;
+    }));
+    console.log(inputStr);
+    input[input.length - 1] += num.toString();
+    console.log(input);
+    updateDisplay(input.join(" "));
+  }
 };
 
 var updateDisplay = function updateDisplay(string) {
@@ -77,6 +93,7 @@ minus.addEventListener("click", function () {
 });
 var clear = document.getElementById('clear');
 clear.addEventListener('click', function () {
-  input = [];
+  input = [''];
+  inputStr = '';
   updateDisplay('');
 });

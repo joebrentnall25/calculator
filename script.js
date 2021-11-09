@@ -1,10 +1,26 @@
-let input = [];
 
-let operators = ['brackets', '/', 'times', 'plus', 'minus'];
+let input = [''];
+let inputStr = "";
+
+let operators = ['brackets', '/', 'x', '+', '-'];
 
 const appendNumber = (num) => {
-    input.push(num);
-    updateDisplay(input.join(" "));
+    if (num === operators[1] || num === operators[2] || num === operators[3] || num === operators[4]){
+        inputStr = "";
+        console.log(input);
+        input.push(num);
+        input.push('');
+        console.log(input);
+        updateDisplay(input.join(' '));
+    }
+    else {
+        inputStr += num;
+        console.log(inputStr.split('').some( ai => operators.indexOf(ai) !== -1))
+        console.log(inputStr);
+        input[input.length-1] += num.toString();
+        console.log(input);
+        updateDisplay(input.join(" "));
+    }
 }
 
 const updateDisplay = (string) => {    
@@ -68,6 +84,7 @@ minus.addEventListener(("click"), function(){appendNumber('-')});
 
 const clear = document.getElementById('clear');
 clear.addEventListener(('click'), () => {
-    input = [];
+    input = [''];
+    inputStr = '';
     updateDisplay('');
 });
