@@ -47,21 +47,31 @@ const rep_calc = (arr) => {
         if (input[i] === '/'){
             const calculation = (arr[i-1])/(arr[i+1]);
             arr.splice(i-1, 3, calculation);
+            console.log(arr)
             rep_calc(arr);
         }
-        else if (input[i] === 'x') {
+    }
+    for (let i = 0; i<input.length; i++){
+        if (input[i] === 'x') {
             const calculation = (arr[i-1]*arr[i+1]);
             arr.splice(i-1, 3, calculation);
+            console.log(arr)
             rep_calc(arr);
         }
-        else if (input[i] === '+') {
-            const calculation = (arr[i-1]+arr[i+1]);
+    }
+    for (let i = 0; i<input.length; i++){
+        if (input[i] === '+') {
+            const calculation = (parseFloat(arr[i-1])+parseFloat(arr[i+1]));
             arr.splice(i-1, 3, calculation);
+            console.log(arr)
             rep_calc(arr);
         }
-        else if (input[i] === '-') {
+    }
+    for (let i = 0; i<input.length; i++){
+        if (input[i] === '-') {
             const calculation = (arr[i-1]-arr[i+1]);
             arr.splice(i-1, 3, calculation);
+            console.log(arr)
             rep_calc(arr);
         }
     }
