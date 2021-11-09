@@ -2,4 +2,150 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Mohave", sans-serif;
+}
+
+body {
+  height: 100vh;
+  background: radial-gradient(circle, #d1d1d1 0%, #d1d1d1 100%);
+}
+body .calc {
+  margin: 5% 5%;
+  border-radius: 3rem;
+  background-color: #ffffff;
+}
+body .calc .calc__screen {
+  height: 20vh;
+  background: linear-gradient(149deg, #12d7fb 0%, #3495fd 100%);
+  border-radius: 2rem 2rem 0 0;
+  font-size: 26px;
+  color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding: 2rem;
+  font-size: 32px;
+}
+body .calc .calc__controls {
+  padding: 0.5rem;
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  grid-auto-rows: 13vh;
+  grid-template-areas: "plus minus times clear" "seven eight nine divide" "four five six percent" "one two three brackets" "decimal zero equals equals";
+  background: none;
+}
+body .calc .calc__controls button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #424242;
+  border-radius: 2rem;
+}
+body .calc .calc__controls .zero {
+  grid-area: zero;
+}
+body .calc .calc__controls .one {
+  grid-area: one;
+}
+body .calc .calc__controls .two {
+  grid-area: two;
+}
+body .calc .calc__controls .three {
+  grid-area: three;
+}
+body .calc .calc__controls .four {
+  grid-area: four;
+}
+body .calc .calc__controls .five {
+  grid-area: five;
+}
+body .calc .calc__controls .six {
+  grid-area: six;
+}
+body .calc .calc__controls .seven {
+  grid-area: seven;
+}
+body .calc .calc__controls .eight {
+  grid-area: eight;
+}
+body .calc .calc__controls .nine {
+  grid-area: nine;
+}
+body .calc .calc__controls .clear {
+  grid-area: clear;
+}
+body .calc .calc__controls .brackets {
+  grid-area: brackets;
+}
+body .calc .calc__controls .percent {
+  grid-area: percent;
+}
+body .calc .calc__controls .decimal {
+  grid-area: decimal;
+}
+body .calc .calc__controls .equals {
+  grid-area: equals;
+  background: linear-gradient(149deg, #12d7fb 0%, #3495fd 100%);
+  margin: 1rem;
+  border-radius: 2rem;
+  color: #ffffff;
+}
+body .calc .calc__controls .equals:hover,
+body .calc .calc__controls .equals:focus {
+  background: linear-gradient(149deg, #12c2e0 0%, #1987fc 100%);
+}
+body .calc .calc__controls .brackets,
+body .calc .calc__controls .percent,
+body .calc .calc__controls .divide,
+body .calc .calc__controls .times,
+body .calc .calc__controls .minus,
+body .calc .calc__controls .plus {
+  color: #3496fc;
+  font-size: 26px;
+  font-weight: bold;
+}
+body .calc .calc__controls .clear {
+  margin: 1rem;
+  border-radius: 2rem;
+  color: #ffffff;
+  background: linear-gradient(149deg, #ffa64a 0%, #da8656 100%);
+}
+body .calc .calc__controls .clear:focus,
+body .calc .calc__controls .clear:hover {
+  background: linear-gradient(149deg, #fd962f 0%, #d47138 100%);
+}
+body .calc .calc__controls .sin {
+  grid-area: sin;
+}
+body .calc .calc__controls .cos {
+  grid-area: cos;
+}
+body .calc .calc__controls .tan {
+  grid-area: tan-btn;
+}
+body .calc .calc__controls .sqrt {
+  grid-area: sqrt;
+}
+body .calc .calc__controls .sin,
+body .calc .calc__controls .cos,
+body .calc .calc__controls .tan,
+body .calc .calc__controls .sqrt {
+  display: none;
+}
+
+@media screen and (min-width: 992px) {
+  body .calc {
+    margin: 2%;
+  }
+  body .calc .calc__controls {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas: "sin plus minus times clear" "cos seven eight nine divide" "tan-btn four five six percent" "sqrt one two three brackets" "s decimal zero equals equals";
+  }
+  body .calc .calc__controls .sin,
+body .calc .calc__controls .cos,
+body .calc .calc__controls .tan,
+body .calc .calc__controls .sqrt {
+    display: block;
+  }
 }

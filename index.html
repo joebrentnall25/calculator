@@ -5,8 +5,47 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mohave:wght@300&family=Nunito+Sans&family=Raleway&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/2b7f6fb16c.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    
+    <section class="calc">
+        <div class="calc__screen">
+            <span id="result"></span>
+        </div>
+        <div class="calc__controls">
+            <!-- General/Basic - Available on all platforms/screen sizes -->
+            <button onclick="appendNumber(1)"class="one">1</button>
+            <button onclick="appendNumber(2)"class="two">2</button>
+            <button onclick="appendNumber(3)"class="three">3</button>
+            <button onclick="appendNumber(4)"class="four">4</button>
+            <button onclick="appendNumber(5)"class="five">5</button>
+            <button onclick="appendNumber(6)"class="six">6</button>
+            <button onclick="appendNumber(7)"class="seven">7</button>
+            <button onclick="appendNumber(8)"class="eight">8</button>
+            <button onclick="appendNumber(9)"class="nine">9</button>
+            <button onclick="appendNumber(0)"class="zero">0</button>
+            <button class="brackets">( )</button>
+            <button class="plus" id="plus"><i class="fas fa-plus"></i></button>
+            <button class="minus" id="minus"><i class="fas fa-minus"></i></button>
+            <button class="times" id="times"><i class="fas fa-times"></i></button>
+            <button class="divide" id="divide"><i class="fas fa-divide"></i></button>
+            <button class="percent"><i class="fas fa-percentage"></i></button>
+            <button class="clear" id="clear">AC</button> 
+            <button class="decimal"><i class="fas fa-circle"></i></button>
+            <button class="equals" id='equals'><i class="fas fa-equals"></i></button>
+
+         <!-- Scientific - only available on landscape and desktop -->
+            <button class="sin">sin</button>
+            <button class="cos">cos</button>
+            <button class="tan">tan</button>
+            <button class="sqrt"><i class="fas fa-square-root-alt"></i></button>
+
+        </div>
+    </section>
+    <script src="script.js"></script>
 </body>
 </html>
