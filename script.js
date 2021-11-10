@@ -6,19 +6,15 @@ let operators = ['brackets', '/', 'x', '+', '-'];
 
 const appendNumber = (num) => {
     if (num === operators[1] || num === operators[2] || num === operators[3] || num === operators[4]){
+        if (num === input[input.length-1])
         inputStr = "";
-        console.log(input);
         input.push(num);
         input.push('');
-        console.log(input);
         updateDisplay(input.join(' '));
     }
     else {
         inputStr += num;
-        console.log(inputStr.split('').some( ai => operators.indexOf(ai) !== -1))
-        console.log(inputStr);
         input[input.length-1] += num.toString();
-        console.log(input);
         updateDisplay(input.join(" "));
     }
 }
@@ -47,7 +43,6 @@ const rep_calc = (arr) => {
         if (input[i] === '/'){
             const calculation = (arr[i-1])/(arr[i+1]);
             arr.splice(i-1, 3, calculation);
-            console.log(arr)
             rep_calc(arr);
         }
     }
@@ -55,7 +50,6 @@ const rep_calc = (arr) => {
         if (input[i] === 'x') {
             const calculation = (arr[i-1]*arr[i+1]);
             arr.splice(i-1, 3, calculation);
-            console.log(arr)
             rep_calc(arr);
         }
     }
@@ -63,7 +57,6 @@ const rep_calc = (arr) => {
         if (input[i] === '+') {
             const calculation = (parseFloat(arr[i-1])+parseFloat(arr[i+1]));
             arr.splice(i-1, 3, calculation);
-            console.log(arr)
             rep_calc(arr);
         }
     }
@@ -71,7 +64,6 @@ const rep_calc = (arr) => {
         if (input[i] === '-') {
             const calculation = (arr[i-1]-arr[i+1]);
             arr.splice(i-1, 3, calculation);
-            console.log(arr)
             rep_calc(arr);
         }
     }
