@@ -14,7 +14,10 @@
 <body>
     <section class="calc">
         <div class="calc__screen">
-            <span id="result"></span>
+            <div class="calc__display">
+                <span id="error"></span>
+                <span id="result"></span>
+            </div>
         </div>
         <div class="calc__controls">
             <!-- General/Basic - Available on all platforms/screen sizes -->
@@ -28,14 +31,15 @@
             <button onclick="appendNumber(8)"class="eight">8</button>
             <button onclick="appendNumber(9)"class="nine">9</button>
             <button onclick="appendNumber(0)"class="zero">0</button>
+            <button onclick="appendNumber('.');" class="decimal"><i class="fas fa-circle"></i></button>
             <button class="brackets">( )</button>
             <button class="plus" id="plus"><i class="fas fa-plus"></i></button>
             <button class="minus" id="minus"><i class="fas fa-minus"></i></button>
             <button class="times" id="times"><i class="fas fa-times"></i></button>
             <button class="divide" id="divide"><i class="fas fa-divide"></i></button>
-            <button class="percent"><i class="fas fa-percentage"></i></button>
+            <button class="percent" id="percent"><i class="fas fa-percentage"></i></button>
             <button class="clear" id="clear">AC</button> 
-            <button class="decimal"><i class="fas fa-circle"></i></button>
+            
             <button class="equals" id='equals'><i class="fas fa-equals"></i></button>
 
          <!-- Scientific - only available on landscape and desktop -->
@@ -43,6 +47,7 @@
             <button class="cos">cos</button>
             <button class="tan">tan</button>
             <button class="sqrt"><i class="fas fa-square-root-alt"></i></button>
+            <button class="power" id="power"><i class="fas fa-superscript"></i></button>
 
         </div>
     </section>
