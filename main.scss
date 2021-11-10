@@ -16,7 +16,7 @@ body {
         border-radius: 3rem;
         background-color: $light;
         .calc__screen {
-            height: 20vh;
+            height: 30vh;
             background: $gradient-screen;
             border-radius: 2rem 2rem 0 0;
             font-size: 26px;
@@ -27,6 +27,11 @@ body {
             align-items: flex-end;
             padding: 2rem;
             font-size: 32px;
+            .calc__display {
+                display: flex;
+                flex-direction: column;
+                text-align: right;
+            }
         }
         .calc__controls {
             padding: 0.5rem;

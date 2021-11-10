@@ -26,35 +26,40 @@ const appendNumber = (num) => {
             lastInput = input[input.length-1];
             input.push(''); 
         }
-        updateDisplay(input.join(' ')); // Updates whats shown on the screen
+        updateDisplay(input.join(' '), 1); // Updates whats shown on the screen
     }
     else {
         inputStr += num;
         input[input.length-1] += num.toString();
         lastInput = "";
-        updateDisplay(input.join(" "));
+        updateDisplay(input.join(" "), 1);
     }
 }
 
-const updateDisplay = (string) => {    
-    document.getElementById("result").innerHTML = string;
+const updateDisplay = (string, label) => {   
+    if (label === 1){
+        document.getElementById("result").innerHTML = string;
+    } else if (label === 2){
+        document.getElementById("error").innerHTML = string;
+    }
+    else {
+        console.log("ERROR: Typo somewhere!")
+    }
 }
 
 const calculate = () => {
-    opIndex = [];
-    tempArr = [];
-    for (let i = 0; i<input.length; i++){
-        for (let x = 0; x<operators.length; x++){
-            if (operators[x] === input[i]){opIndex.push(i);}
-        }
+    if (isOperator(lastInput)) {
+        updateDisplay("Error!",2)
+    } else {
+        updateDisplay("", 2);
+        rep_calc(input);    
     }
-    rep_calc(input);    
 }
 
 const rep_calc = (arr) => {
     if (arr.length === 1){ 
         input = arr;
-        updateDisplay(arr[0]) 
+        updateDisplay(arr[0], 1) 
     }
     for (let i = 0; i<input.length; i++){
         if (input[i] === '/'){
@@ -106,5 +111,5 @@ clear.addEventListener(('click'), () => {
     input = [''];
     inputStr = '';
     lastInput = '';
-    updateDisplay('');
+    updateDisplay('', 1);
 });

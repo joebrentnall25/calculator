@@ -2,51 +2,63 @@
 
 var input = [''];
 var inputStr = "";
+var lastInput = "blank";
 var operators = ['brackets', '/', 'x', '+', '-'];
 
-var appendNumber = function appendNumber(num) {
+var isOperator = function isOperator(num) {
   if (num === operators[1] || num === operators[2] || num === operators[3] || num === operators[4]) {
-    inputStr = "";
-    console.log(input);
-    input.push(num);
-    input.push('');
-    console.log(input);
-    updateDisplay(input.join(' '));
+    return true;
   } else {
-    inputStr += num;
-    console.log(inputStr.split('').some(function (ai) {
-      return operators.indexOf(ai) !== -1;
-    }));
-    console.log(inputStr);
-    input[input.length - 1] += num.toString();
-    console.log(input);
-    updateDisplay(input.join(" "));
+    return false;
   }
 };
 
-var updateDisplay = function updateDisplay(string) {
-  document.getElementById("result").innerHTML = string;
+var appendNumber = function appendNumber(num) {
+  console.log(lastInput);
+
+  if (isOperator(num)) {
+    if (isOperator(lastInput)) {
+      console.log('it is equal');
+      input[input.length - 2] = num;
+    } else {
+      inputStr = "";
+      input.push(num);
+      lastInput = input[input.length - 1];
+      input.push('');
+    }
+
+    updateDisplay(input.join(' '), 1); // Updates whats shown on the screen
+  } else {
+    inputStr += num;
+    input[input.length - 1] += num.toString();
+    lastInput = "";
+    updateDisplay(input.join(" "), 1);
+  }
+};
+
+var updateDisplay = function updateDisplay(string, label) {
+  if (label === 1) {
+    document.getElementById("result").innerHTML = string;
+  } else if (label === 2) {
+    document.getElementById("error").innerHTML = string;
+  } else {
+    console.log("ERROR: Typo somewhere!");
+  }
 };
 
 var calculate = function calculate() {
-  opIndex = [];
-  tempArr = [];
-
-  for (var i = 0; i < input.length; i++) {
-    for (var x = 0; x < operators.length; x++) {
-      if (operators[x] === input[i]) {
-        opIndex.push(i);
-      }
-    }
+  if (isOperator(lastInput)) {
+    updateDisplay("Error!", 2);
+  } else {
+    updateDisplay("", 2);
+    rep_calc(input);
   }
-
-  rep_calc(input);
 };
 
 var rep_calc = function rep_calc(arr) {
   if (arr.length === 1) {
     input = arr;
-    updateDisplay(arr[0]);
+    updateDisplay(arr[0], 1);
   }
 
   for (var i = 0; i < input.length; i++) {
@@ -54,20 +66,32 @@ var rep_calc = function rep_calc(arr) {
       var calculation = arr[i - 1] / arr[i + 1];
       arr.splice(i - 1, 3, calculation);
       rep_calc(arr);
-    } else if (input[i] === 'x') {
-      var _calculation = arr[i - 1] * arr[i + 1];
+    }
+  }
 
-      arr.splice(i - 1, 3, _calculation);
+  for (var _i = 0; _i < input.length; _i++) {
+    if (input[_i] === 'x') {
+      var _calculation = arr[_i - 1] * arr[_i + 1];
+
+      arr.splice(_i - 1, 3, _calculation);
       rep_calc(arr);
-    } else if (input[i] === '+') {
-      var _calculation2 = arr[i - 1] + arr[i + 1];
+    }
+  }
 
-      arr.splice(i - 1, 3, _calculation2);
+  for (var _i2 = 0; _i2 < input.length; _i2++) {
+    if (input[_i2] === '+') {
+      var _calculation2 = parseFloat(arr[_i2 - 1]) + parseFloat(arr[_i2 + 1]);
+
+      arr.splice(_i2 - 1, 3, _calculation2);
       rep_calc(arr);
-    } else if (input[i] === '-') {
-      var _calculation3 = arr[i - 1] - arr[i + 1];
+    }
+  }
 
-      arr.splice(i - 1, 3, _calculation3);
+  for (var _i3 = 0; _i3 < input.length; _i3++) {
+    if (input[_i3] === '-') {
+      var _calculation3 = arr[_i3 - 1] - arr[_i3 + 1];
+
+      arr.splice(_i3 - 1, 3, _calculation3);
       rep_calc(arr);
     }
   }
@@ -95,5 +119,6 @@ var clear = document.getElementById('clear');
 clear.addEventListener('click', function () {
   input = [''];
   inputStr = '';
-  updateDisplay('');
+  lastInput = '';
+  updateDisplay('', 1);
 });
