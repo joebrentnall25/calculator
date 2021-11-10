@@ -1,20 +1,37 @@
 
 let input = [''];
 let inputStr = "";
+let lastInput = "blank";
 
 let operators = ['brackets', '/', 'x', '+', '-'];
 
-const appendNumber = (num) => {
+const isOperator = (num) => {
     if (num === operators[1] || num === operators[2] || num === operators[3] || num === operators[4]){
-        if (num === input[input.length-1])
-        inputStr = "";
-        input.push(num);
-        input.push('');
-        updateDisplay(input.join(' '));
+        return true;
+    } else {
+        return false;
+    }
+}
+
+const appendNumber = (num) => {
+    console.log(lastInput);
+    if (isOperator(num)){
+        if (isOperator(lastInput)){
+            console.log('it is equal');
+            input[input.length-2] = num;
+        }
+        else {
+            inputStr = "";
+            input.push(num);
+            lastInput = input[input.length-1];
+            input.push(''); 
+        }
+        updateDisplay(input.join(' ')); // Updates whats shown on the screen
     }
     else {
         inputStr += num;
         input[input.length-1] += num.toString();
+        lastInput = "";
         updateDisplay(input.join(" "));
     }
 }
@@ -88,5 +105,6 @@ const clear = document.getElementById('clear');
 clear.addEventListener(('click'), () => {
     input = [''];
     inputStr = '';
+    lastInput = '';
     updateDisplay('');
 });
