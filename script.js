@@ -1,7 +1,8 @@
 
 let input = [''];
 let inputStr = "";
-let lastInput = "blank";
+let lastInput = "";
+let isCalculated = false;
 
 let operators = ['%','^', '/', 'x', '+', '-']; // Array of operators
 
@@ -20,36 +21,40 @@ const isOperator = (num) => {
 // This conducts some validation to determine if input is number or operator
 // This function will then call the update display function to output onto calculator
 const appendNumber = (num) => {
-    // This runs if input is an operator
-    if (isOperator(num)){
-        if (input.length === 0) {
-            updateDisplay("ERROR: please enter number first", 2);
+    if (!isCalculated){
+        // This runs if input is an operator
+        if (isOperator(num)){
+            if (input.length === 0) {
+                updateDisplay("ERROR: please enter number first", 2);
+            }
+            if (isOperator(lastInput)){
+                input[input.length-2] = num;
+            }
+            else {
+                inputStr = "";
+                input.push(num);
+                lastInput = input[input.length-1];
+                input.push(''); 
+            }
+            updateDisplay(input.join(' '), 1); // Updates whats shown on the screen
         }
-        if (isOperator(lastInput)){
-            input[input.length-2] = num;
+        // This runs if the input is a decimal point
+        else if (num === '.' && input[0] === ''){          
+            inputStr += ('0' + num);
+            lastInput = '.';
+            input[input.length-1] += '0.';
+            updateDisplay(input.join(''),1)        
         }
+        else if ((lastInput === '.' && num === '.') || inputStr.includes('.') && num === '.'){}
+        // This runs if it is just a standard number
         else {
-            inputStr = "";
-            input.push(num);
-            lastInput = input[input.length-1];
-            input.push(''); 
+            inputStr += num;
+            input[input.length-1] += num.toString();
+            lastInput = "";
+            updateDisplay(input.join(" "), 1);
         }
-        updateDisplay(input.join(' '), 1); // Updates whats shown on the screen
-    }
-    // This runs if the input is a decimal point
-    else if (num === '.' && input[0] === ''){          
-        inputStr += ('0' + num);
-        console.log(inputStr);
-        lastInput = '.';
-        input[input.length-1] += '0.';
-        updateDisplay(input.join(''),1)        
-    }
-    // This runs if it is just a standard number
-    else {
-        inputStr += num;
-        input[input.length-1] += num.toString();
-        lastInput = "";
-        updateDisplay(input.join(" "), 1);
+    } else {
+
     }
 }
 
@@ -65,18 +70,18 @@ const updateDisplay = (string, label) => {
 }
 
 const calculate = () => {
-    if (isOperator(lastInput) || lastInput === '%') {
-        console.log(lastInput);
+    if (isOperator(lastInput) && !lastInput==='%') {
         updateDisplay("Error!",2)
     } else {
         updateDisplay("", 2);
         res = rep_calc(input)
+        isCalculated = true;
         updateDisplay(rep_calc(input), 1);    
     }
 }
 
-const calcWithBrackets = () => {
-
+const calcWithBrackets = (newArr) => {
+    return rep_calc(newArr)
 }
 
 /* 
@@ -96,10 +101,12 @@ const rep_calc = (arr) => {
     for (let i = 0; i<input.length; i++){
         if (input[i]==='(') {
             const brackArr = [];
+            let brackLen = 1;
             while(input[i]!==')'){
                 brackArr.push(input[i]);
+                brackLen+=1;
             }
-            rep_calc(brackArr);
+            arr.splice(i, brackLen, calcWithBrackets(brackArr));
         }
     }
 
@@ -157,22 +164,23 @@ const percent = document.getElementById('percent');
 percent.addEventListener(('click'), function(){appendNumber('%')});
 
 const power = document.getElementById('power');
-power.addEventListener(('click'), function(){appendNumber('^')});
+power.addEventListener(('click'), function(){isCalculated = false; appendNumber('^')});
 
 const divide = document.getElementById('divide');
-divide.addEventListener(("click"), function(){appendNumber('/')});
+divide.addEventListener(("click"), function(){isCalculated = false; appendNumber('/')});
 
 const times = document.getElementById('times');
-times.addEventListener(("click"), function(){appendNumber('x')});
+times.addEventListener(("click"), function(){isCalculated = false; appendNumber('x')});
 
 const plus = document.getElementById('plus');
-plus.addEventListener(('click'), function(){appendNumber('+')});
+plus.addEventListener(('click'), function(){isCalculated = false; appendNumber('+')});
 
 const minus = document.getElementById('minus');
-minus.addEventListener(("click"), function(){appendNumber('-')});
+minus.addEventListener(("click"), function(){isCalculated = false; appendNumber('-')});
 
 const clear = document.getElementById('clear');
 clear.addEventListener(('click'), () => {
+    isCalculated = false;
     input = [''];
     inputStr = '';
     lastInput = '';
