@@ -3,7 +3,7 @@ let input = [''];
 let inputStr = "";
 let lastInput = "blank";
 
-let operators = ['^', '/', 'x', '+', '-'];
+let operators = ['%','^', '/', 'x', '+', '-'];
 
 const isOperator = (num) => {
     for(let i = 0; i<operators.length; i++){
@@ -16,6 +16,9 @@ const isOperator = (num) => {
 
 const appendNumber = (num) => {
     if (isOperator(num)){
+        if (input.length === 0) {
+            updateDisplay("ERROR: please enter number first", 2);
+        }
         if (isOperator(lastInput)){
             input[input.length-2] = num;
         }
@@ -26,6 +29,19 @@ const appendNumber = (num) => {
             input.push(''); 
         }
         updateDisplay(input.join(' '), 1); // Updates whats shown on the screen
+    }
+    else if (num === '.'){
+        console.log()
+        if (input.length === 1){            
+            inputStr += ('0' + num);
+            console.log(inputStr);
+            lastInput = '.';
+            input[input.length-1] += '0.';
+            updateDisplay(input.join(''),1)
+        }
+    }
+    else if (num === '.' && num === lastInput) {
+            
     }
     else {
         inputStr += num;
@@ -47,7 +63,8 @@ const updateDisplay = (string, label) => {
 }
 
 const calculate = () => {
-    if (isOperator(lastInput)) {
+    if (isOperator(lastInput) || lastInput === '%') {
+        console.log(lastInput);
         updateDisplay("Error!",2)
     } else {
         updateDisplay("", 2);
@@ -110,6 +127,12 @@ const rep_calc = (arr) => {
     // BIDM(Add/Subtract)
     for (let i = 0; i<input.length; i++){
         if (input[i] === '+') {
+            if (input[i+2] === '%'){
+                const calculation = (input[i]*(100+input[i+1]))
+                console.log(calculation);
+                arr.splice(i-1,4, calculation)
+                rep_calc(arr)
+            }
             const calculation = (parseFloat(arr[i-1])+parseFloat(arr[i+1]));
             arr.splice(i-1, 3, calculation);
             rep_calc(arr);
@@ -130,7 +153,6 @@ equals.addEventListener(('click'), calculate);
 
 const percent = document.getElementById('percent');
 percent.addEventListener(('click'), function(){appendNumber('%')});
-
 
 const power = document.getElementById('power');
 power.addEventListener(('click'), function(){appendNumber('^')});

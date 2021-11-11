@@ -3,7 +3,7 @@
 var input = [''];
 var inputStr = "";
 var lastInput = "blank";
-var operators = ['^', '/', 'x', '+', '-'];
+var operators = ['%', '^', '/', 'x', '+', '-'];
 
 var isOperator = function isOperator(num) {
   for (var i = 0; i < operators.length; i++) {
@@ -17,6 +17,10 @@ var isOperator = function isOperator(num) {
 
 var appendNumber = function appendNumber(num) {
   if (isOperator(num)) {
+    if (input.length === 0) {
+      updateDisplay("ERROR: please enter number first", 2);
+    }
+
     if (isOperator(lastInput)) {
       input[input.length - 2] = num;
     } else {
@@ -27,7 +31,17 @@ var appendNumber = function appendNumber(num) {
     }
 
     updateDisplay(input.join(' '), 1); // Updates whats shown on the screen
-  } else {
+  } else if (num === '.') {
+    console.log();
+
+    if (input.length === 1) {
+      inputStr += '0' + num;
+      console.log(inputStr);
+      lastInput = '.';
+      input[input.length - 1] += '0.';
+      updateDisplay(input.join(''), 1);
+    }
+  } else if (num === '.' && num === lastInput) {} else {
     inputStr += num;
     input[input.length - 1] += num.toString();
     lastInput = "";
@@ -46,7 +60,8 @@ var updateDisplay = function updateDisplay(string, label) {
 };
 
 var calculate = function calculate() {
-  if (isOperator(lastInput)) {
+  if (isOperator(lastInput) || lastInput === '%') {
+    console.log(lastInput);
     updateDisplay("Error!", 2);
   } else {
     updateDisplay("", 2);
@@ -109,14 +124,22 @@ var rep_calc = function rep_calc(arr) {
 
   for (var _i3 = 0; _i3 < input.length; _i3++) {
     if (input[_i3] === '+') {
+      if (input[_i3 + 2] === '%') {
+        var _calculation4 = input[_i3] * (100 + input[_i3 + 1]);
+
+        console.log(_calculation4);
+        arr.splice(_i3 - 1, 4, _calculation4);
+        rep_calc(arr);
+      }
+
       var _calculation3 = parseFloat(arr[_i3 - 1]) + parseFloat(arr[_i3 + 1]);
 
       arr.splice(_i3 - 1, 3, _calculation3);
       rep_calc(arr);
     } else if (input[_i3] === '-') {
-      var _calculation4 = arr[_i3 - 1] - arr[_i3 + 1];
+      var _calculation5 = arr[_i3 - 1] - arr[_i3 + 1];
 
-      arr.splice(_i3 - 1, 3, _calculation4);
+      arr.splice(_i3 - 1, 3, _calculation5);
       rep_calc(arr);
     }
   }

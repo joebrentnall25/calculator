@@ -9,13 +9,17 @@ body {
   height: 100vh;
   background: radial-gradient(circle, #d1d1d1 0%, #d1d1d1 100%);
 }
+body .header {
+  padding: 1rem 1rem 0 1rem;
+  text-align: center;
+}
 body .calc {
   margin: 5% 5%;
   border-radius: 3rem;
   background-color: #ffffff;
 }
 body .calc .calc__screen {
-  height: 30vh;
+  height: 20vh;
   background: linear-gradient(149deg, #12d7fb 0%, #3495fd 100%);
   border-radius: 2rem 2rem 0 0;
   font-size: 26px;
@@ -36,7 +40,7 @@ body .calc .calc__controls {
   padding: 0.5rem;
   display: grid;
   grid-template-columns: repeat(4, auto);
-  grid-auto-rows: 13vh;
+  grid-auto-rows: 12vh;
   grid-template-areas: "plus minus times clear" "seven eight nine divide" "four five six percent" "one two three brackets" "decimal zero equals equals";
   background: none;
 }
@@ -132,10 +136,14 @@ body .calc .calc__controls .tan {
 body .calc .calc__controls .sqrt {
   grid-area: sqrt;
 }
+body .calc .calc__controls .power {
+  grid-area: power;
+}
 body .calc .calc__controls .sin,
 body .calc .calc__controls .cos,
 body .calc .calc__controls .tan,
-body .calc .calc__controls .sqrt {
+body .calc .calc__controls .sqrt,
+body .calc .calc__controls .power {
   display: none;
 }
 
@@ -145,12 +153,13 @@ body .calc .calc__controls .sqrt {
   }
   body .calc .calc__controls {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-template-areas: "sin plus minus times clear" "cos seven eight nine divide" "tan-btn four five six percent" "sqrt one two three brackets" "s decimal zero equals equals";
+    grid-template-areas: "sin plus minus times clear" "cos seven eight nine divide" "tan-btn four five six percent" "sqrt one two three brackets" "power decimal zero equals equals";
   }
   body .calc .calc__controls .sin,
 body .calc .calc__controls .cos,
 body .calc .calc__controls .tan,
-body .calc .calc__controls .sqrt {
+body .calc .calc__controls .sqrt,
+body .calc .calc__controls .power {
     display: block;
   }
 }

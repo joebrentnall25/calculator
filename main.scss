@@ -11,12 +11,19 @@
 body {
     height: 100vh;
     background: $gradient-main;
+    .header {
+        padding: 1rem 1rem 0 1rem;
+        text-align: center;
+        h1 {
+            
+        }
+    }
     .calc {
         margin: 5% 5%;
         border-radius: 3rem;
         background-color: $light;
         .calc__screen {
-            height: 30vh;
+            height: 20vh;
             background: $gradient-screen;
             border-radius: 2rem 2rem 0 0;
             font-size: 26px;
@@ -37,7 +44,7 @@ body {
             padding: 0.5rem;
             display: grid;
             grid-template-columns: repeat(4,auto);
-            grid-auto-rows: 13vh;
+            grid-auto-rows: 12vh;
             grid-template-areas:"plus minus times clear"
                                 "seven eight nine divide"
                                 "four five six percent"
@@ -145,11 +152,15 @@ body {
             .sqrt{
                 grid-area: sqrt;
             }
+            .power {
+                grid-area: power;
+            }
             
             .sin,
             .cos,
             .tan,
-            .sqrt {
+            .sqrt,
+            .power {
                 display: none;
             }
         }
@@ -164,7 +175,8 @@ body {
                 .sin,
                 .cos,
                 .tan,
-                .sqrt {
+                .sqrt,
+                .power {
                     display: block;
                 }
                 grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
@@ -172,7 +184,7 @@ body {
                 "cos seven eight nine divide"
                 "tan-btn four five six percent"
                 "sqrt one two three brackets"
-                "s decimal zero equals equals";
+                "power decimal zero equals equals";
             }
         }
     }
