@@ -3,8 +3,10 @@ let input = [''];
 let inputStr = "";
 let lastInput = "blank";
 
-let operators = ['%','^', '/', 'x', '+', '-'];
+let operators = ['%','^', '/', 'x', '+', '-']; // Array of operators
 
+// Function used to check if the number inputted is an operator
+// This wil return TRUE or False.
 const isOperator = (num) => {
     for(let i = 0; i<operators.length; i++){
         if (num === operators[i]){
@@ -14,7 +16,11 @@ const isOperator = (num) => {
     return false;
 }
 
+// Function used to add a number to the input array
+// This conducts some validation to determine if input is number or operator
+// This function will then call the update display function to output onto calculator
 const appendNumber = (num) => {
+    // This runs if input is an operator
     if (isOperator(num)){
         if (input.length === 0) {
             updateDisplay("ERROR: please enter number first", 2);
@@ -30,19 +36,15 @@ const appendNumber = (num) => {
         }
         updateDisplay(input.join(' '), 1); // Updates whats shown on the screen
     }
-    else if (num === '.'){
-        console.log()
-        if (input.length === 1){            
-            inputStr += ('0' + num);
-            console.log(inputStr);
-            lastInput = '.';
-            input[input.length-1] += '0.';
-            updateDisplay(input.join(''),1)
-        }
+    // This runs if the input is a decimal point
+    else if (num === '.' && input[0] === ''){          
+        inputStr += ('0' + num);
+        console.log(inputStr);
+        lastInput = '.';
+        input[input.length-1] += '0.';
+        updateDisplay(input.join(''),1)        
     }
-    else if (num === '.' && num === lastInput) {
-            
-    }
+    // This runs if it is just a standard number
     else {
         inputStr += num;
         input[input.length-1] += num.toString();
